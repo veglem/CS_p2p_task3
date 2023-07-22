@@ -32,7 +32,7 @@ class Program
         animals[0] = new Cat("Барсик");
         animals[1] = new Dog("Шарик");
         animals[2] = new Cat("Пушистик");
-        Console.WriteLine("Портивные испытания домашних питомцев");
+        Console.WriteLine("Спортивные испытания домашних питомцев");
         foreach (var i in animals)
         {
             Console.WriteLine("Испытания проходит" + (i is Cat ? " кот " : " пёс ") + i.Name);
