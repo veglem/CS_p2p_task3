@@ -24,8 +24,7 @@ public class Employee
     {
         set
         {
-            const string pattern = @"^[A-ZА-ЯЁ][a-z а-яA-ZА-ЯЁё-]*$";
-            if (Regex.IsMatch(value, pattern))
+            if (IsNameValid(value))
             {
                 _firstName = value;
             }
@@ -41,8 +40,7 @@ public class Employee
     {
         set
         {
-            const string pattern = @"^[A-ZА-ЯЁ][a-z а-яA-ZА-ЯЁё-]*$";
-            if (Regex.IsMatch(value, pattern))
+            if (IsNameValid(value))
             {
                 _surname = value;
             }
@@ -58,8 +56,7 @@ public class Employee
     {
         set
         {
-            const string pattern = @"^[A-ZА-ЯЁ][a-z а-яA-ZА-ЯЁё-]*$";
-            if (Regex.IsMatch(value, pattern))
+            if (IsNameValid(value))
             {
                 _middleName = value;
             }
@@ -69,6 +66,13 @@ public class Employee
             }
         }
         get => _middleName ?? "";
+    }
+
+    // Имена должны начинаться с большой буквы, содержат только символы алфавита, пробелы и тире.
+    private bool IsNameValid(string name)
+    {
+        const string pattern = @"^[A-ZА-ЯЁ][a-z а-яA-ZА-ЯЁё-]*$";
+        return Regex.IsMatch(name, pattern);
     }
 
     // Должность
@@ -88,6 +92,7 @@ public class Employee
             }
             else
             {
+                // Если вдруг в email пытаются пропихнуть килирицу, мы её прогоняем через трнаслит
                 var translator = new TranslitMethods.Translitter();
                 value = translator.Translit(value, TranslitMethods.TranslitType.Iso);
                 if (Regex.IsMatch(value, pattern, RegexOptions.CultureInvariant))
