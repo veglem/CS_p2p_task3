@@ -52,11 +52,11 @@ public class Employee
         get => _surname;
     }
 
-    public string MiddleName
+    public string? MiddleName
     {
         set
         {
-            if (IsNameValid(value))
+            if (value is null || IsNameValid(value))
             {
                 _middleName = value;
             }
@@ -65,7 +65,7 @@ public class Employee
                 throw new ArgumentException("Unexpected MiddleName");
             }
         }
-        get => _middleName ?? "";
+        get => _middleName;
     }
 
     // Имена должны начинаться с большой буквы, содержат только символы алфавита, пробелы и тире.
@@ -92,18 +92,7 @@ public class Employee
             }
             else
             {
-                // Если вдруг в email пытаются пропихнуть килирицу, мы её прогоняем через трнаслит
-                var translator = new TranslitMethods.Translitter();
-                value = translator.Translit(value, TranslitMethods.TranslitType.Iso);
-                if (Regex.IsMatch(value, pattern, RegexOptions.CultureInvariant))
-                {
-                    _email = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Unexpected Email");
-                }
-                
+                throw new ArgumentException("Unexpected Email");
             }
         }
         get => _email;
@@ -138,19 +127,17 @@ public class Employee
     {
         FirstName = firstName;
         Surname = surname;
-        if (middleName is null)
-        {
-            _middleName = null;
-        }
-        else
-        {
-            MiddleName = middleName;
-        }
+        MiddleName = middleName;
         Position = position;
         if (email is null)
         {
-            Email = surname.Replace(" ", "") + FirstName[0] + (middleName is null ? "" : $"{MiddleName[0]}") +
-                    "@company.ru";
+            var translator = new TranslitMethods.Translitter();
+            // тут я лишний раз прогоняю через транслит, тк добавлять тут проверку на присутствие кириллицы смысла осбо нет
+            // если в строке её нет - она не поменяется, а по времени выйдет так же как и обычная проверка фором или регексом.
+            Email = translator.Translit(surname.Replace(" ", "") + FirstName[0] +
+                                        (MiddleName is null ? "" : $"{MiddleName[0]}"),
+                        TranslitMethods.TranslitType.Iso)
+                    + "@company.ru";
         }
         else
         {

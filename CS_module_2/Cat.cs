@@ -11,30 +11,16 @@ class Cat : Animal
 
     public override void Run(uint distance)
     {
-        if (distance <= 200)
-        {
-            Console.WriteLine($"{Name} успешно пробежал {distance} м");
-        }
-        else
-        {
-            Console.WriteLine($"{Name} не смог пробежать {distance} м");
-        }
+        base.Run(distance, 200);
     }
 
     public override void Swim(uint distance)
     {
-        Console.WriteLine($"{Name} не умеет плавать, это же кот!");
+        base.Swim(distance, 0);
     }
 
     public override void Jump(uint height)
     {
-        if (height <= 2)
-        {
-            Console.WriteLine($"{Name} успешно прыгнул на {height} м");
-        }
-        else
-        {
-            Console.WriteLine($"{Name} не смог прыгнуть {height} м");
-        }
+        base.Jump(height, 2);
     }
 }

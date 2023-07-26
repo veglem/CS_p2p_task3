@@ -11,30 +11,16 @@ class Dog : Animal
 
     public override void Run(uint distance)
     {
-        if (distance <= 500)
-        {
-            Console.WriteLine($"{Name} успешно пробежал {distance} м");
-        }
-        else
-        {
-            Console.WriteLine($"{Name} не смог пробежать {distance} м");
-        }
+        base.Run(distance, 500);
     }
 
     public override void Swim(uint distance)
     {
-        if (distance <= 10)
-        {
-            Console.WriteLine($"{Name} успешно проплыл {distance} м");
-        }
-        else
-        {
-            Console.WriteLine($"{Name} не смог прорлыть {distance} м");
-        }
+        base.Swim(distance, 10);
     }
 
     public override void Jump(uint height)
     {
-        Console.WriteLine($"{Name} не умеет прыгать, это же собака!");
+        base.Jump(height, 0);
     }
 }

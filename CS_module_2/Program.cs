@@ -6,8 +6,7 @@ class Program
     {
         // Task 1 test
         Random generator = new Random();
-        Employee?[] workers = new Employee[] { };
-        Array.Resize(ref workers, 30);
+        Employee?[] workers = new Employee[30];
         for (int i = 0; i < 30; ++i)
         {
             // UPD: перехватываю создаваемые исключения, чтобы программа продолжила выполняться при возникновении исключений
@@ -47,11 +46,14 @@ class Program
         {
             // Каждое животное проходит стандартный "пулл" испытаний
             Console.WriteLine("Испытания проходит" + (i is Cat ? " кот " : " пёс ") + i.Name);
+            i.Run(0);
             i.Run(180);
             i.Run(250);
             i.Run(520);
+            i.Swim(0);
             i.Swim(5);
             i.Swim(15);
+            i.Jump(0);
             i.Jump(1);
             i.Jump(3);
             Console.WriteLine("");
@@ -61,11 +63,11 @@ class Program
     }
 
     // Список тестовых входных данных, с ними можно играть))
-    static string[] _firstNames = new string[] { "Артём", "Михаил", "Аль-Хаси", "Даниэль Франциско", "Иван" };
-    static string[] _surnames = new string[] { "Иванов", "Смирнов", "Кузнецов", "Попов", "Петров" };
+    static string[] _firstNames = new string[] { "Артём", "Mike", "Аль-Хаси", "Даниэль Франциско", "Иван" };
+    static string[] _surnames = new string[] { "Иванов", "Смирнов", "Kuznucov", "Попов", "Петров" };
 
-    static string[] _middleNames = new string[]
-        { "Артёмович", "Михаилович", "Александрович", "Дмитриевич", "Иванович" };
+    static string?[] _middleNames = new string?[]
+        { "Артёмович", "Михаилович", "Александрович", null, "Иванович" };
 
     static string[] _positions = new string[] { "Frontend dev", "Backend dev", "Mobile dev" };
 }
