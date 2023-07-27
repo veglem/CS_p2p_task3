@@ -12,15 +12,13 @@ abstract class Animal
         Counter++;
     }
 
-    public abstract void Run(uint distance);
-
-    protected void Run(uint distance, uint maxDistance)
+    public virtual void Run(uint distance)
     {
         if (distance == 0)
         {
             Console.WriteLine($"{Name} остался на месте");
         }
-        else if (distance <= maxDistance)
+        else if (distance <= MaxRunDistance)
         {
             Console.WriteLine($"{Name} успешно пробежал {distance} м");
         }
@@ -30,7 +28,25 @@ abstract class Animal
         }
     }
 
-    public abstract void Swim(uint distance);
+    protected uint MaxRunDistance { get; init; }
+
+    public virtual void Swim(uint distance)
+    {
+        if (distance == 0)
+        {
+            Console.WriteLine($"{Name} остался на месте");
+        }
+        else if (distance <= MaxSwimDistance)
+        {
+            Console.WriteLine($"{Name} успешно проплыл {distance} м");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} не смог прорлыть {distance} м");
+        }
+    }
+    
+    protected uint MaxSwimDistance { get; init; }
 
     protected void Swim(uint distance, uint maxDistance)
     {
@@ -51,20 +67,14 @@ abstract class Animal
             Console.WriteLine($"{Name} не смог прорлыть {distance} м");
         }
     }
-    
-    public abstract void Jump(uint height);
 
-    protected void Jump(uint height, uint maxHeight)
+    public virtual void Jump(uint height)
     {
         if (height == 0)
         {
             Console.WriteLine($"{Name} остался на месте");
         }
-        else if (maxHeight == 0)
-        {
-            Console.WriteLine($"{Name} не умеет прыгать");
-        }
-        else if (height <= maxHeight)
+        else if (height <= MaxJumpHeight)
         {
             Console.WriteLine($"{Name} успешно прыгнул на {height} м");
         }
@@ -73,4 +83,6 @@ abstract class Animal
             Console.WriteLine($"{Name} не смог прыгнуть {height} м");
         }
     }
+    
+    protected uint MaxJumpHeight { get; init; }
 }

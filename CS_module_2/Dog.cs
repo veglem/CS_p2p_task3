@@ -6,21 +6,13 @@ class Dog : Animal
     
     public Dog(string name) : base(name)
     {
+        MaxRunDistance = 500;
+        MaxSwimDistance = 10;
         DogCounter++;
-    }
-
-    public override void Run(uint distance)
-    {
-        base.Run(distance, 500);
-    }
-
-    public override void Swim(uint distance)
-    {
-        base.Swim(distance, 10);
     }
 
     public override void Jump(uint height)
     {
-        base.Jump(height, 0);
+        Console.WriteLine($"{Name} не умеет прыгать, это же собака!!");
     }
 }

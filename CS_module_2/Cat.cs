@@ -6,21 +6,13 @@ class Cat : Animal
     
     public Cat(string name) : base(name)
     {
+        MaxRunDistance = 200;
+        MaxJumpHeight = 2;
         CatCounter++;
-    }
-
-    public override void Run(uint distance)
-    {
-        base.Run(distance, 200);
     }
 
     public override void Swim(uint distance)
     {
-        base.Swim(distance, 0);
-    }
-
-    public override void Jump(uint height)
-    {
-        base.Jump(height, 2);
+        Console.WriteLine($"{Name} не умеет плавать, это же кот!");
     }
 }
